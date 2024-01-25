@@ -7,9 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import java.sql.SQLOutput;
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Table;
 
@@ -22,7 +19,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class usuario {
+public class Usuario {
 
 
     @Id
@@ -40,7 +37,7 @@ public class usuario {
     private String senha;
 
 	public static void main(String[] args) {
-		usuario usuario = new usuario();
+		Usuario usuario = new Usuario();
 		usuario.setEmail("mateus.gomes@muralis.com.br");
 		usuario.setNome("usuario");
 		usuario.setSenha("senha");

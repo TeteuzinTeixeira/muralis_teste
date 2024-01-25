@@ -64,7 +64,7 @@ public class Lancamento {
         this.ano = ano;
     }
 
-    public void setUsuario(com.muralis.minhasfinancas.model.entity.usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -100,7 +100,7 @@ public class Lancamento {
         return ano;
     }
 
-    public com.muralis.minhasfinancas.model.entity.usuario getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
@@ -128,7 +128,7 @@ public class Lancamento {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private usuario usuario;
+    private Usuario usuario;
 
     @Column(name = "valor")
     private Integer valor;
