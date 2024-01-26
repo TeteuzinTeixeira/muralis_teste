@@ -1,31 +1,32 @@
 package com.muralis.minhasfinancas.model.entity;
 
-import lombok.*;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 @Entity
-@Table(name = "usuario", schema = "financas")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Table( name = "usuario" , schema = "financas")
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Usuario {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Long id;
 
     @Column(name = "nome")
     private String nome;
@@ -34,12 +35,8 @@ public class Usuario {
     private String email;
 
     @Column(name = "senha")
+    @JsonIgnore
     private String senha;
 
-	public static void main(String[] args) {
-		Usuario usuario = new Usuario();
-		usuario.setEmail("mateus.gomes@muralis.com.br");
-		usuario.setNome("usuario");
-		usuario.setSenha("senha");
-	}
+
 }
