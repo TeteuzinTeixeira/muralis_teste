@@ -5,6 +5,7 @@ import com.muralis.minhasfinancas.model.enums.TipoLancamento;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -68,7 +69,7 @@ public class Lancamento {
         this.usuario = usuario;
     }
 
-    public void setValor(Integer valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -104,7 +105,7 @@ public class Lancamento {
         return usuario;
     }
 
-    public Integer getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
@@ -131,7 +132,7 @@ public class Lancamento {
     private Usuario usuario;
 
     @Column(name = "valor")
-    private Integer valor;
+    private BigDecimal valor;
 
     @Column(name = "data_cadastro")
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
