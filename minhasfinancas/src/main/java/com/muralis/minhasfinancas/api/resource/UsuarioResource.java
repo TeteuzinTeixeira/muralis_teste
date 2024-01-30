@@ -6,6 +6,7 @@ import com.muralis.minhasfinancas.exception.RegraNegocioException;
 import com.muralis.minhasfinancas.model.entity.Usuario;
 import com.muralis.minhasfinancas.service.LancamentoService;
 import com.muralis.minhasfinancas.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class UsuarioResource {
 
     private final UsuarioService service;
     private final LancamentoService lancamentoService;
 
-    @Autowired
-    public UsuarioResource(UsuarioService service) {
-        this.service = service;
-    }
 
     @PostMapping("/autenticar")
     public ResponseEntity autenticar (@RequestBody UsuarioDTO dto) {
@@ -39,11 +37,13 @@ public class UsuarioResource {
     }
 
     @GetMapping("{id}/saldo")
-    public ResponseEntity obterSaldo(@PathVariable("id") Long id) {
+    public ResponseEntity obterSaldo( @PathVariable("id") Long id ) {
         Optional<Usuario> usuario = service.obterPorId(id);
-        if (!usuario.isPresent()){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        if(!usuario.isPresent()) {
+            return new ResponseEntity( HttpStatus.NOT_FOUND );
         }
+
         BigDecimal saldo = lancamentoService.obterSaldoPorUsuario(id);
         return ResponseEntity.ok(saldo);
     }
