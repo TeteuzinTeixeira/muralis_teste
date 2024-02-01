@@ -68,7 +68,7 @@ public class LancamentoServiceImpl implements LancamentoService {
     public void validar(Lancamento lancamento) {
 
         if(lancamento.getDescricao() == null || lancamento.getDescricao().trim().equals("")) {
-            throw new RegraNegocioException("Informe uma descrição válida");
+            throw new RegraNegocioException("Informe uma Descrição válida.");
         }
 
         if (lancamento.getMes() == null || lancamento.getMes() < 1 || lancamento.getMes() > 12) {
@@ -84,7 +84,7 @@ public class LancamentoServiceImpl implements LancamentoService {
         }
 
         if(lancamento.getValor() == null || lancamento.getValor().compareTo(BigDecimal.ZERO) < 1 ) {
-            throw new RegraNegocioException("Informe um valor válido.");
+            throw new RegraNegocioException("Informe um Valor válido.");
         }
 
         if(lancamento.getTipo() == null) {
@@ -96,8 +96,8 @@ public class LancamentoServiceImpl implements LancamentoService {
     @Override
     @Transactional (readOnly = true)
     public BigDecimal obterSaldoPorUsuario (Long id) {
-        BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA);
-        BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA);
+        BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuarioEStatus(id, TipoLancamento.RECEITA, StatusLancamento.EFETIVADO);
+        BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuarioEStatus(id, TipoLancamento.DESPESA, StatusLancamento.EFETIVADO);
         if(receitas == null) {
             receitas = BigDecimal.ZERO;
         }
