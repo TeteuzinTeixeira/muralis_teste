@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import './../../../node_modules/bootswatch/dist/flatly/bootstrap.css'
+import './../../../node_modules/bootswatch/dist/darkly/bootstrap.css'
 import '../custom.css'
 import Rotas from './rotas';
 import Navbar from '../components/navbar';
