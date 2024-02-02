@@ -29,7 +29,6 @@ import java.util.Optional;
 @AutoConfigureTestEntityManager
 @Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
 public class LancamentoRepositoryTest {
 
     @Autowired

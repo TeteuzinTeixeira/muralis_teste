@@ -20,7 +20,6 @@ import com.muralis.minhasfinancas.MinhasfinancasApplication;
 import com.muralis.minhasfinancas.model.entity.Usuario;
 
 @SpringBootTest(classes = MinhasfinancasApplication.class)
-@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @AutoConfigureTestEntityManager
 @Transactional

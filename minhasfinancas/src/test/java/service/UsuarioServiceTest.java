@@ -22,7 +22,6 @@ import java.util.Optional;
 
 @SpringBootTest(classes = com.muralis.minhasfinancas.MinhasfinancasApplication.class)
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
 public class UsuarioServiceTest {
 
     @SpyBean

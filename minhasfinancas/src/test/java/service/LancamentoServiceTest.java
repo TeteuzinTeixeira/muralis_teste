@@ -38,7 +38,6 @@ import com.muralis.minhasfinancas.service.impl.LancamentoServiceImpl;
 import org.springframework.test.context.junit4.SpringRunner;
 import repository.LancamentoRepositoryTest;
 
-@ActiveProfiles("test")
 @SpringBootTest(classes = com.muralis.minhasfinancas.MinhasfinancasApplication.class)
 @ExtendWith(SpringExtension.class)
 public class LancamentoServiceTest {

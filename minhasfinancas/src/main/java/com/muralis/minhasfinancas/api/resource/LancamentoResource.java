@@ -99,7 +99,6 @@ public class LancamentoResource {
         }catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     private Lancamento converter(LancamentoDTO dto) {
