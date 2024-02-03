@@ -2,6 +2,7 @@ import React from "react";
 
 import UsuarioService from "../app/service/usuarioService";
 import LocalStorageService from "../app/service/localstorageService";
+import { USUARIO_LOGADO } from "../app/service/authService";
 
 class Home extends React.Component {
 
@@ -15,12 +16,10 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
-
-        const setUsuarioLogado  = JSON.parse(usuarioLogado);
+        const usuarioLogado = LocalStorageService.obterItem(USUARIO_LOGADO)
 
         this.usuarioService
-            .obterSaldoPorUsuario(setUsuarioLogado.id)
+            .obterSaldoPorUsuario(usuarioLogado.id)
             .then( response => {
                 this.setState({ saldo: response.data})
             }).catch(error => {

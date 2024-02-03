@@ -1,3 +1,5 @@
+import { USUARIO_LOGADO } from "./authService";
+
 export default class LocalStorageService {
     
     static adicionarItem(chave, valor){
@@ -7,5 +9,9 @@ export default class LocalStorageService {
     static obterItem(chave){
         const item = localStorage.getItem(chave);
         return JSON.parse(item)
+    }
+
+    static removerItem(chave){
+        localStorage.removeItem(chave)
     }
 }

@@ -1,4 +1,5 @@
 import ApiService from '../apiservice'
+import ErroValidacao from '../exception/ErroValidacao'
 
 export default class LancamentoService extends ApiService {
 
@@ -27,9 +28,53 @@ export default class LancamentoService extends ApiService {
     obterListaTipos(){
         return[
             { label: 'Selectione...', value: ''},
-            { label: 'Despesa', value: 'DESSPESA'},
+            { label: 'Despesa', value: 'DESPESA'},
             { label: 'Receita', value: 'RECEITA'},
         ]
+    }
+
+    obterPorId(id){
+        return this.get(`/${id}`);
+    }
+
+    alterarStatus(lancamento, status){
+        return this.put(`/${lancamento.id}/atualiza-status`, { status })
+    }
+
+    validar (lancamento){
+        const erros = [];
+
+        if(!lancamento.ano){
+            erros.push('Informe o Ano')
+        }
+        
+        if(!lancamento.mes){
+            erros.push('Informe o Mes')
+        }
+        
+        if(!lancamento.descricao){
+            erros.push('Informe a Descrição')
+        }
+        
+        if(!lancamento.tipo){
+            erros.push('Informe o Tipo')
+        }
+        
+        if(!lancamento.mes){
+            erros.push('Informe o Mes')
+        }
+
+        if(erros && erros.length > 0){
+            throw new ErroValidacao(erros);
+        }
+    }
+
+    salvar(lancamento){
+        return this.post('/', lancamento);
+    }
+
+    atualizar(lancamento){
+        return this.put(`/${lancamento.id}`, lancamento)
     }
 
     consultar (lancamentoFiltro){
@@ -59,5 +104,9 @@ export default class LancamentoService extends ApiService {
         }
 
         return this.get(params)
+    }
+
+    deletar(id){
+        return this.delete(`/${id}`)
     }
 }
