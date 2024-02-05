@@ -6,6 +6,7 @@ import com.muralis.minhasfinancas.model.entity.Usuario;
 import com.muralis.minhasfinancas.repository.UsuarioRepository;
 import com.muralis.minhasfinancas.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,13 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository repository;
+    private PasswordEncoder encoder;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository repository) {
+    public UsuarioServiceImpl(UsuarioRepository repository, PasswordEncoder encoder) {
         super();
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -31,7 +34,9 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new ErroAutenticacao("Usuario nao Encontrado para o email informado.");
         }
 
-        if (!usuario.get().getSenha().equals(senha)) {
+        boolean senhaCorreta = encoder.matches(senha, usuario.get().getSenha());
+
+        if (!senhaCorreta) {
             throw new ErroAutenticacao("Senha Invalida.");
         }
 
@@ -43,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario salvarUsuario(Usuario usuario) {
 
         validarEmail(usuario.getEmail());
-
+        criptografarSenha(usuario);
         return repository.save(usuario);
     }
 
@@ -53,6 +58,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (existe) {
             throw new RegraNegocioException("Ja existe um usuario cadastro com este email.");
         }
+    }
+
+    private void criptografarSenha(Usuario usuario) {
+        String senha = usuario.getSenha();
+        String senhaCriptografada = encoder.encode(senha);
+        usuario.setSenha(senhaCriptografada);
     }
 
     @Override
