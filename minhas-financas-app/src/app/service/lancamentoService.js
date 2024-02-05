@@ -1,4 +1,5 @@
 import ApiService from '../apiservice'
+
 import ErroValidacao from '../exception/ErroValidacao'
 
 export default class LancamentoService extends ApiService {
@@ -8,8 +9,8 @@ export default class LancamentoService extends ApiService {
     }
 
     obterListaMeses(){
-        return[
-            { label: 'Selecione...', value: ''},
+        return  [
+            { label: 'Selecione...', value: '' },
             { label: 'Janeiro', value: 1 },
             { label: 'Fevereiro', value: 2 },
             { label: 'Março', value: 3 },
@@ -26,42 +27,43 @@ export default class LancamentoService extends ApiService {
     }
 
     obterListaTipos(){
-        return[
-            { label: 'Selectione...', value: ''},
-            { label: 'Despesa', value: 'DESPESA'},
-            { label: 'Receita', value: 'RECEITA'},
+        return  [
+            { label: 'Selecione...', value: '' },
+            { label: 'Despesa' , value : 'DESPESA' },
+            { label: 'Receita' , value : 'RECEITA' }
         ]
+
     }
 
     obterPorId(id){
         return this.get(`/${id}`);
     }
 
-    alterarStatus(lancamento, status){
-        return this.put(`/${lancamento.id}/atualiza-status`, { status })
+    alterarStatus(id, status){
+        return this.put(`/${id}/atualiza-status`, { status })
     }
 
-    validar (lancamento){
+    validar(lancamento){
         const erros = [];
 
         if(!lancamento.ano){
-            erros.push('Informe o Ano')
+            erros.push("Informe o Ano.")
         }
-        
+
         if(!lancamento.mes){
-            erros.push('Informe o Mes')
+            erros.push("Informe o Mês.")
         }
-        
+
         if(!lancamento.descricao){
-            erros.push('Informe a Descrição')
+            erros.push("Informe a Descrição.")
         }
-        
+
+        if(!lancamento.valor){
+            erros.push("Informe o Valor.")
+        }
+
         if(!lancamento.tipo){
-            erros.push('Informe o Tipo')
-        }
-        
-        if(!lancamento.mes){
-            erros.push('Informe o Mes')
+            erros.push("Informe o Tipo.")
         }
 
         if(erros && erros.length > 0){
@@ -74,36 +76,33 @@ export default class LancamentoService extends ApiService {
     }
 
     atualizar(lancamento){
-        return this.put(`/${lancamento.id}`, lancamento)
+        return this.put(`/${lancamento.id}`, lancamento);
     }
 
-    consultar (lancamentoFiltro){
+    consultar(lancamentoFiltro){
         let params = `?ano=${lancamentoFiltro.ano}`
 
-        if(lancamentoFiltro.mes) {
-        params = `${params}&mes=${lancamentoFiltro.mes}`
+        if(lancamentoFiltro.mes){
+            params = `${params}&mes=${lancamentoFiltro.mes}`
         }
 
-        if(lancamentoFiltro.tipo) {
-        params = `${params}&tipo=${lancamentoFiltro.tipo}`
+        if(lancamentoFiltro.tipo){
+            params = `${params}&tipo=${lancamentoFiltro.tipo}`
         }
 
         if(lancamentoFiltro.status){
-
-            params = `${params}&status=${lancamentoFiltro.tipo}`
+            params = `${params}&status=${lancamentoFiltro.status}`
         }
 
         if(lancamentoFiltro.usuario){
-
             params = `${params}&usuario=${lancamentoFiltro.usuario}`
         }
 
         if(lancamentoFiltro.descricao){
-
             params = `${params}&descricao=${lancamentoFiltro.descricao}`
         }
 
-        return this.get(params)
+        return this.get(params);
     }
 
     deletar(id){

@@ -1,5 +1,3 @@
-import { USUARIO_LOGADO } from "./authService";
-
 export default class LocalStorageService {
     
     static adicionarItem(chave, valor){
